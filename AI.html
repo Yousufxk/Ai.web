@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AuroraMind AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#0B0F1A;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ================= AURORA BACKGROUND ================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,#00F5FF,transparent 70%);
+  top:-200px;
+  left:-200px;
+  animation:move1 12s infinite alternate ease-in-out;
+  z-index:-1;
+  opacity:0.5;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,#8A2BE2,transparent 70%);
+  bottom:-200px;
+  right:-200px;
+  animation:move2 15s infinite alternate ease-in-out;
+  z-index:-1;
+  opacity:0.5;
+}
+
+@keyframes move1{
+  0%{transform:translate(0,0)}
+  100%{transform:translate(200px,150px)}
+}
+
+@keyframes move2{
+  0%{transform:translate(0,0)}
+  100%{transform:translate(-150px,-200px)}
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+  position:fixed;
+  width:100%;
+  padding:20px 10%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.05);
+  z-index:1000;
+}
+
+nav h2{
+  background:linear-gradient(90deg,#00F5FF,#00FF94,#8A2BE2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:25px;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#00FF94;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:0 10%;
+}
+
+.hero h1{
+  font-size:50px;
+  background:linear-gradient(90deg,#00F5FF,#00FF94,#8A2BE2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  max-width:600px;
+  margin:20px 0;
+  opacity:0.8;
+}
+
+/* ================= PREMIUM BUTTON ================= */
+
+.gradient-btn{
+  background:linear-gradient(90deg,#00F5FF,#00FF94,#8A2BE2);
+  background-size:200% 200%;
+  animation:gradientMove 4s ease infinite;
+  border:none;
+  padding:14px 28px;
+  border-radius:30px;
+  color:white;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.gradient-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #00FF94;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0%}
+  50%{background-position:100%}
+  100%{background-position:0%}
+}
+
+/* ================= CHAT ================= */
+
+.chat-box{
+  margin-top:30px;
+  display:flex;
+  max-width:500px;
+  width:100%;
+}
+
+.chat-box input{
+  flex:1;
+  padding:14px;
+  border-radius:30px 0 0 30px;
+  border:none;
+  outline:none;
+}
+
+.chat-box button{
+  border-radius:0 30px 30px 0;
+}
+
+.response{
+  margin-top:20px;
+  padding:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  display:none;
+}
+
+/* ================= FEATURES ================= */
+
+section{
+  padding:100px 10%;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+.card{
+  padding:40px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  transition:0.4s;
+  text-align:center;
+}
+
+.card:hover{
+  transform:translateY(-15px);
+  box-shadow:0 0 25px rgba(0,255,150,0.3);
+}
+
+/* ================= LOGIN ================= */
+
+.login-wrapper{
+  display:flex;
+  justify-content:center;
+}
+
+.login-box{
+  width:100%;
+  max-width:420px;
+  padding:50px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(25px);
+  box-shadow:0 0 40px rgba(0,255,200,0.3);
+}
+
+.input-group{
+  position:relative;
+  margin-bottom:25px;
+}
+
+.input-group input{
+  width:100%;
+  padding:14px;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,0.3);
+  background:transparent;
+  color:white;
+  outline:none;
+}
+
+.input-group label{
+  position:absolute;
+  left:15px;
+  top:14px;
+  transition:0.3s;
+  color:rgba(255,255,255,0.6);
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label{
+  top:-10px;
+  left:10px;
+  font-size:12px;
+  background:#0B0F1A;
+  padding:0 6px;
+  border-radius:8px;
+}
+
+.show-pass{
+  position:absolute;
+  right:15px;
+  top:14px;
+  cursor:pointer;
+  font-size:14px;
+  opacity:0.7;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  text-align:center;
+  padding:40px;
+  opacity:0.6;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+  .hero h1{font-size:32px;}
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>AuroraMind AI</h2>
+  <div>
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#login">Login</a>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <h1>AI for Today. Intelligence for Tomorrow.</h1>
+  <p>Premium AI interface designed with Northern Lights aesthetics and futuristic SaaS experience.</p>
+
+  <div class="chat-box">
+    <input type="text" id="userInput" placeholder="Ask AuroraMind...">
+    <button class="gradient-btn" onclick="generateResponse()">Send</button>
+  </div>
+
+  <div class="response" id="responseBox">
+    <p id="aiResponse"></p>
+  </div>
+</section>
+
+<section id="features">
+  <h2 style="text-align:center;margin-bottom:40px;">Core Features</h2>
+  <div class="features">
+    <div class="card">🌗 Dark Interface</div>
+    <div class="card">🎤 Voice Ready</div>
+    <div class="card">🔊 Text to Speech</div>
+    <div class="card">📋 Smart Copy</div>
+  </div>
+</section>
+
+<section id="login">
+  <h2 style="text-align:center;margin-bottom:40px;">Member Login</h2>
+  <div class="login-wrapper">
+    <div class="login-box">
+      <div class="input-group">
+        <input type="email" required>
+        <label>Email Address</label>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" required>
+        <label>Password</label>
+        <span class="show-pass" onclick="togglePass()">Show</span>
+      </div>
+
+      <button class="gradient-btn" style="width:100%;">Login</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+© 2026 AuroraMind AI — Premium AI Experience
+</footer>
+
+<script>
+
+function generateResponse(){
+  let input=document.getElementById("userInput").value;
+  let box=document.getElementById("responseBox");
+  let output=document.getElementById("aiResponse");
+
+  if(input==="") return;
+
+  box.style.display="block";
+  output.innerText="Processing...";
+
+  setTimeout(()=>{
+    output.innerText="AuroraMind Response: "+input;
+  },1000);
+}
+
+function togglePass(){
+  let pass=document.getElementById("password");
+  pass.type=pass.type==="password"?"text":"password";
+}
+
+</script>
+
+</body>
+</html>
